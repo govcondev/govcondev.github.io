@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #ball {
+      z-index: 5;
+      position: absolute;
+      left: 0px;
+      top: 200px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: red;
+    }
+
+    #startButton {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HTML element for the ball -->
+<div id="ball"></div>
+
+<!-- Button to start the program -->
+<button id="startButton">Start</button>
+
+<script>
+
+// Create a global variable for the ball element
+var ball = document.getElementById("ball");
+
+// Declare global variables for velocity, initial position on the axes, and direction
+var velocity = 5; 
+var positionX = 0;
+var positionY = 0; 
+var reverse = false; // Initial value
+var Xmin = 0; 
+var Xmax = window.innerWidth - 100; 
+var Ymin = 0; 
+var Ymax = window.innerHeight - 100; 
+
+// Function to move the ball
+function moveBall() {
+  // Update the positionX variable based on the value of reverse
+  if (!reverse) {
+    // When reverse is false, the ball moves from left to right
+    positionX += velocity;
+  } else {
+    // When reverse is true, the ball moves from right to left
+    positionX -= velocity;
+  }
+
+  // Update the positionY variable based on the value of reverse
+  if (!reverse) {
+    // When reverse is false, the ball moves from top to bottom
+    positionY += velocity;
+  } else {
+    // When reverse is true, the ball moves from bottom to top
+    positionY -= velocity;
+  }
+
+  // Check if the ball position exceeds the defined ranges (Xmax, Xmin, Ymax, Ymin)
+  if (positionX >= Xmax || positionX <= Xmin) {
+    // Switch the value of reverse for the x-axis
+    reverse = !reverse;
+    // Execute the program when criteria are met
+    executeProgram();
+  }
+
+  if (positionY >= Ymax || positionY <= Ymin) {
+    // Switch the value of reverse for the y-axis
+    reverse = !reverse;
+    // Execute the program when criteria are met
+    executeProgram();
+  }
+
+  // Set the ball's position to the new values of positionX and positionY
+  ball.style.left = positionX + "px";
+  ball.style.top = positionY + "px";
+}
+
+// Function to execute the program
+function executeProgram() {
+  // Add your program logic here
+  console.log("Program executed!");
+}
+
+// Function to start the program when the button is clicked
+function startProgram() {
+  // Call moveBall function every 16 milliseconds (adjust as needed for smoother animation)
+  setInterval(moveBall, 16);
+}
+
+// Add event listener to the Start button
+document.getElementById("startButton").addEventListener("click", startProgram);
+
+</script>
+
+</body>
+</html>
